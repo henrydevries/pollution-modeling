@@ -1,0 +1,23 @@
+#!/bin/bash -l
+#SBATCH -J simulationstudy
+#SBATCH --time=96:00:00    
+#SBATCH --partition=genoa   
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+#SBATCH -N 1
+#SBATCH --cpus-per-task=192
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=h.j.c.de.vries@student.vu.nl
+echo "== Starting run at $(date)"
+echo "== Job ID: ${SLURM_JOBID}"
+echo "== Node list: ${SLURM_NODELIST}"
+echo "== Submit dir. : ${SLURM_SUBMIT_DIR}"
+echo "== Scratch dir. : ${TMPDIR}"
+# environment modules
+module purge
+module load 2024
+module load SciPy-bundle/2024.06-gfbf-2025a
+module load statsmodels/0.14.4-gfbf-2024a
+cd /home/hdevries/jointsmoothforecasts/onesteppublication/
+python simulationMAIN.py
+

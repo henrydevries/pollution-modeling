@@ -57,7 +57,7 @@ def DGPmaker(r, s1, s2, Phi, T, Z, nu, h=0.1,):
     N, K = Phi.shape
     sigma_u = 1.0
     Xi = factordynamics(T, sigma_u, r)
-    H = np.random.randn(K, r)
+    H = np.load("Q_empirical.npy")[:, :5]
     locations = np.column_stack((s1, s2))
 
     # 1. Generate all mean functions at once

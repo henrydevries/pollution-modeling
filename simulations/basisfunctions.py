@@ -32,9 +32,9 @@ def omegacomputer(n_grid=2000, k=3, n_knots=5):
 
     for i in range(K):
         for j in range(K):
-            Omega0[i, j] = np.trapezoid(basis_values[i] * basis_values[j], grid)
-            Omega1[i, j] = np.trapezoid(basis_values_d1[i] * basis_values_d1[j], grid)
-            Omega2[i, j] = np.trapezoid(basis_values_d2[i] * basis_values_d2[j], grid)
+            Omega0[i, j] = np.trapz(basis_values[i] * basis_values[j], grid)
+            Omega1[i, j] = np.trapz(basis_values_d1[i] * basis_values_d1[j], grid)
+            Omega2[i, j] = np.trapz(basis_values_d2[i] * basis_values_d2[j], grid)
                         
     Omega0 = (Omega0 + Omega0.T)/2
     Omega1 = (Omega1 + Omega1.T)/2

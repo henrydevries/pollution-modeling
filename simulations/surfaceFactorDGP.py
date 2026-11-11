@@ -2,18 +2,6 @@ from scipy import stats
 import numpy as np
 from basisfunctions import Phimaker
 
-def MarkovMaskMaker(n_loc, days, p, q):
-    Z = np.zeros((n_loc, days), dtype=bool)
-    pi1 = (1-q)/(2-p-q)
-    Z[:, 0] = np.random.rand(n_loc) < pi1
-    for t in range(1, days):
-        prev = Z[:, t-1]
-        stay_1 = (np.random.rand(n_loc) < p)
-        stay_0 = (np.random.rand(n_loc) < q)
-        Z[:, t] = np.where(prev, stay_1, ~stay_0)
-    return Z
-
-
 def factordynamics(T, sigma_u, r=5):
     Xi = np.zeros((T, r))
     c = 0.01 * np.ones(r)
@@ -53,11 +41,9 @@ def innovationmaker(observed_locations, Sigma, nu):
     )
     return eps[observed_locations]
 
-def DGPmaker(r, s1, s2, Phi, T, Z, nu, h=0.1,):
+def DGPmaker(r, s1, s2, Phi, T, Z, nu, Xi, h=0.1):
     N, K = Phi.shape
-    sigma_u = 1.0
-    Xi = factordynamics(T, sigma_u, r)
-    H = np.load("Q_empirical.npy")[:, :5]
+    H = np.load("Q_logdata.npy")[:, :r]
     locations = np.column_stack((s1, s2))
 
     # 1. Generate all mean functions at once
@@ -99,13 +85,16 @@ def surfacepicker(s1, s2, T, r, p, q, nu):
     Z = MarkovMaskMaker(len(s1), T, p=p, q=q)
     Z_surface = MarkovMaskMaker(len(s1_surface), T, p=1, q=0)
 
+    sigma_u = 0.3
+    Xi = factordynamics(T, sigma_u, r)
+
     Y_list, Mu_list = DGPmaker(
-        r, s1, s2, Phi, T, Z, nu
+        r, s1, s2, Phi, T, Z, nu, Xi
     )
 
     _, Mu_list_surface = DGPmaker(
         r, s1_surface, s2_surface, Phi_surface,
-        T, Z_surface, nu
+        T, Z_surface, nu, Xi
     )
 
     return Phi, Phi_surface, Y_list, Mu_list, Mu_list_surface

@@ -256,6 +256,7 @@ if __name__ == "__main__":
                })
 
    df_results = pd.DataFrame(rows)
+   df_results.to_csv("raw_results.csv", index=False)
 
    summary = (
        df_results.groupby(["T", "N", "p", "q", "missing_rate", "sampling", "nu", "model"]).agg(

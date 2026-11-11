@@ -18,7 +18,7 @@ The main components are:
 - Model specifications are implemented in separate modules:
    `fGAS.py`, `pooling.py`, `rollingaverage.py`, `statespace.py`, and `VARL1.py`.
 - The FPCA basis is constructed by `FPCA.py`.
-- The eigenfunctions of the empirical section are stored in `Q_empirical.npy`, which are used for the DGP of the simulation.
+- The eigenfunctions of the empirical section are stored in `Q_logdata.npy`, which are used for the DGP of the simulation.
 
 All simulations were executed on the Snellius high-performance computing system ([SURF Snellius](https://www.surf.nl/diensten/rekenen/snellius-de-nationale-supercomputer)). The simulations were run using Python 3.9.21 with SciPy 1.13.1. As a result, some legacy numerical functions are used (e.g., `np.trapz`).
 

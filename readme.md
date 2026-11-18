@@ -25,7 +25,7 @@ All simulations were executed on the Snellius high-performance computing system 
 ### Section 4: Empirical application to PM2.5 forecasting
 All code for the empirical application is located in the `empirical/` directory. This code is run **locally**.
 
-The empirical analysis uses PM2.5 data obtained from [PurpleAir](https://www.purpleair.com/). Data loading is handled by `dataloader` function defined in the respective notebooks.
+The empirical analysis uses PM2.5 data obtained from [PurpleAir](https://www.purpleair.com/). The Data used can be found in the folder `data/`. Data loading is handled by `dataloader` function defined in the respective notebooks and scripts.
 
 - Data exploration (Section 4.1) is performed in `empirical/data interpretation and exploration/dataset_exploration.ipynb`.
 - PC interpretation (Section 4.2) is performed in `empirical/data interpretation and exploration/PC-interpretation.ipynb`.
